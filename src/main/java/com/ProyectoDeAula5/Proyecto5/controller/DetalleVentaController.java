@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/detalleventa")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class DetalleVentaController {
 
     @Autowired

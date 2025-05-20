@@ -15,7 +15,7 @@ import com.ProyectoDeAula5.Proyecto5.service.ProveedorService;
 
 @RestController
 @RequestMapping("/api/productos")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class ProductoController {
 
     @Autowired

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/graficos")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class GraficoController {
 
     @Autowired

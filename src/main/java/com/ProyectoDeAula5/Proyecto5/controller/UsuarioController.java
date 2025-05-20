@@ -20,7 +20,7 @@ import com.ProyectoDeAula5.Proyecto5.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
@@ -50,4 +50,4 @@ public class UsuarioController {
         return ResponseEntity.ok(nuevoUsuario);
     }
 
-}
+}   

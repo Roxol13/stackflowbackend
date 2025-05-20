@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ventas")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class VentaController {
 
     @Autowired

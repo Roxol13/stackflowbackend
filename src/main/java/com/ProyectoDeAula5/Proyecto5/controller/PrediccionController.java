@@ -12,7 +12,7 @@ import com.ProyectoDeAula5.Proyecto5.service.dto.PrediccionService;
 
 @RestController
 @RequestMapping("/api/predecir")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stackflowbackend.onrender.com")
 public class PrediccionController {
 
     @Autowired
