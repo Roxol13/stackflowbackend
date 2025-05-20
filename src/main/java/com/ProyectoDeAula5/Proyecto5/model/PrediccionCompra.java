@@ -7,20 +7,19 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @Entity
-public class Cliente {
+public class PrediccionCompra {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int dni;
-    private String nombre;
-    private String telefono;
-    private String direccion;
-    private String razon;
-    private int edad;
-    private String genero;
-    private Double satisfaccionPromedio;
+    private double edad;
+    private double ingresos;
+    private double comprasAnteriores;
+    private String resultado;
+
+    private double probabilidad; // <-- Nuevo campo agregado
 
 }
