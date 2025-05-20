@@ -4,4 +4,4 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-alpine
 COPY --from=build /target/Proyecto5-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-ENTRYPOINT [ "jar","-jar","demo.jar" ]
+ENTRYPOINT [ "jar","-jar","Proyecto5-0.0.1-SNAPSHOT.jar" ]
