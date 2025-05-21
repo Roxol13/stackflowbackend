@@ -75,7 +75,7 @@ public class VentaService {
                 clienteService.actualizarSatisfaccion(cliente.getId(), satisfactionScore);
             }
         }
-
+        
         return ventaGuardada;
     }
 
