@@ -42,14 +42,11 @@ public class VentaService {
         List<DetalleVenta> detalles = new ArrayList<>();
         if (venta.getDetallesVenta() != null) {
             for (DetalleVenta detalle : venta.getDetallesVenta()) {
-            detalle.setVenta(venta); // ❗ Relación inversa
-            productoService.actualizarInventario(detalle.getCod_pro(), detalle.getCantidad());
-            detalles.add(guardarDetalleVenta(detalle));
+                log.info("Guardando detalles de la venta " + detalle);
+                productoService.actualizarInventario(detalle.getCod_pro(), detalle.getCantidad());
+                detalles.add(guardarDetalleVenta(detalle));
             }
-        } else {
-            log.error("No se han proporcionado detalles de venta.");
-            return null; // O lanzar una excepción
-
+            
         }
 
         venta.setDetallesVenta(detalles);
