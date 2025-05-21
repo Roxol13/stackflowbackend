@@ -40,20 +40,11 @@ public class VentaService {
     public Venta guardarVenta(Venta venta) {
         log.info("Generando venta " + venta.getDetallesVenta());
         List<DetalleVenta> detalles = new ArrayList<>();
-
         if (venta.getDetallesVenta() != null) {
             for (DetalleVenta detalle : venta.getDetallesVenta()) {
                 log.info("Guardando detalles de la venta " + detalle);
-
-                // 🔄 Actualizar inventario
                 productoService.actualizarInventario(detalle.getCod_pro(), detalle.getCantidad());
-
-                // ⚠️ Establecer relación con la venta
-                detalle.setVenta(ventaGuardada);
-
-                // Guardar detalle con referencia válida
-                DetalleVenta detalleGuardado = detalleVentaRepository.save(detalle);
-                detalles.add(detalleGuardado);
+                detalles.add(guardarDetalleVenta(detalle));
             }
         }
 
