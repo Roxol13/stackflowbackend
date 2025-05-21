@@ -24,8 +24,9 @@ public class Venta {
     private String fecha;
     private String metodoPago;
 
-    @OneToMany
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<DetalleVenta> detallesVenta;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id") // FK hacia cliente
