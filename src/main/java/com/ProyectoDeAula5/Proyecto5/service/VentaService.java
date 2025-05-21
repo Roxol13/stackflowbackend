@@ -39,24 +39,38 @@ public class VentaService {
     @Transactional
     public Venta guardarVenta(Venta venta) {
         log.info("Generando venta " + venta.getDetallesVenta());
+
+        // Guardar la venta primero (sin detalles aún)
+        venta.setDetallesVenta(new ArrayList<>()); // Inicializa la lista vacía
+        Venta ventaGuardada = ventaRepository.save(venta); // Se genera el ID aquí
+
         List<DetalleVenta> detalles = new ArrayList<>();
+
         if (venta.getDetallesVenta() != null) {
             for (DetalleVenta detalle : venta.getDetallesVenta()) {
                 log.info("Guardando detalles de la venta " + detalle);
+
+                // 🔄 Actualizar inventario
                 productoService.actualizarInventario(detalle.getCod_pro(), detalle.getCantidad());
-                detalles.add(guardarDetalleVenta(detalle));
+
+                // ⚠️ Establecer relación con la venta
+                detalle.setVenta(ventaGuardada);
+
+                // Guardar detalle con referencia válida
+                DetalleVenta detalleGuardado = detalleVentaRepository.save(detalle);
+                detalles.add(detalleGuardado);
             }
         }
 
-        venta.setDetallesVenta(detalles);
-        Venta ventaGuardada = ventaRepository.save(venta);
+        // Asignar los detalles guardados a la venta y actualizar
+        ventaGuardada.setDetallesVenta(detalles);
+        ventaGuardada = ventaRepository.save(ventaGuardada); // Update para incluir detalles
 
-        // 🔄 ACTUALIZAR SATISFACCION DEL CLIENTE
+        // 🔄 Actualizar satisfacción del cliente
         Optional<Cliente> optionalCliente = clienteRepository.findByNombre(venta.getNomcliente());
         if (optionalCliente.isPresent() && !detalles.isEmpty()) {
             Cliente cliente = optionalCliente.get();
             Double satisfactionScore = detalles.get(0).getSatisfactionScore();
-
             if (satisfactionScore != null) {
                 clienteService.actualizarSatisfaccion(cliente.getId(), satisfactionScore);
             }
