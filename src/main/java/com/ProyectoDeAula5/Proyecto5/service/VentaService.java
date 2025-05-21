@@ -39,11 +39,6 @@ public class VentaService {
     @Transactional
     public Venta guardarVenta(Venta venta) {
         log.info("Generando venta " + venta.getDetallesVenta());
-
-        // Guardar la venta primero (sin detalles aún)
-        venta.setDetallesVenta(new ArrayList<>()); // Inicializa la lista vacía
-        Venta ventaGuardada = ventaRepository.save(venta); // Se genera el ID aquí
-
         List<DetalleVenta> detalles = new ArrayList<>();
 
         if (venta.getDetallesVenta() != null) {
@@ -62,20 +57,20 @@ public class VentaService {
             }
         }
 
-        // Asignar los detalles guardados a la venta y actualizar
-        ventaGuardada.setDetallesVenta(detalles);
-        ventaGuardada = ventaRepository.save(ventaGuardada); // Update para incluir detalles
+        venta.setDetallesVenta(detalles);
+        Venta ventaGuardada = ventaRepository.save(venta);
 
-        // 🔄 Actualizar satisfacción del cliente
+        // 🔄 ACTUALIZAR SATISFACCION DEL CLIENTE
         Optional<Cliente> optionalCliente = clienteRepository.findByNombre(venta.getNomcliente());
         if (optionalCliente.isPresent() && !detalles.isEmpty()) {
             Cliente cliente = optionalCliente.get();
             Double satisfactionScore = detalles.get(0).getSatisfactionScore();
+
             if (satisfactionScore != null) {
                 clienteService.actualizarSatisfaccion(cliente.getId(), satisfactionScore);
             }
         }
-        
+
         return ventaGuardada;
     }
 
