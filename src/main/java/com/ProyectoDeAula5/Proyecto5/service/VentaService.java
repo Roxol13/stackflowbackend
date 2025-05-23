@@ -43,8 +43,9 @@ public class VentaService {
         if (venta.getDetallesVenta() != null) {
             for (DetalleVenta detalle : venta.getDetallesVenta()) {
                 log.info("Guardando detalles de la venta " + detalle);
+                detalle.setVenta(venta);
                 productoService.actualizarInventario(detalle.getCod_pro(), detalle.getCantidad());
-                detalles.add(guardarDetalleVenta(detalle));
+                detalles.add(detalle);
             }
         }
 

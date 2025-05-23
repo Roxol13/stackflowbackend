@@ -1,6 +1,9 @@
 package com.ProyectoDeAula5.Proyecto5.model;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +27,10 @@ public class Venta {
     private String fecha;
     private String metodoPago;
 
-    @OneToMany
+    @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<DetalleVenta> detallesVenta;
+
 
     @ManyToOne
     @JoinColumn(name = "cliente_id") // FK hacia cliente

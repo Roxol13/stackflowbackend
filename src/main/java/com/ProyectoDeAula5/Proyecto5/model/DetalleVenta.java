@@ -1,5 +1,7 @@
 package com.ProyectoDeAula5.Proyecto5.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,5 +29,6 @@ public class DetalleVenta {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venta_id", referencedColumnName = "id")
+    @JsonBackReference
     private Venta venta;
 }

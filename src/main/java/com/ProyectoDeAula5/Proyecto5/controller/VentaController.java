@@ -30,9 +30,13 @@ public class VentaController {
     @PostMapping("/guardar")
     public ResponseEntity<Venta> guardarVenta(@RequestBody Venta venta) {
         System.out.println("Datos recibidos: " + venta.toString());
-        venta.getDetallesVenta().forEach(d -> {
-            System.out.println("Detalle - SatisfactionScore: " + d.getSatisfactionScore());
-        });
+
+        if (venta.getDetallesVenta() != null) {
+            venta.getDetallesVenta().forEach(d -> {
+                System.out.println("Detalle - SatisfactionScore: " + d.getSatisfactionScore());
+            });
+        }
+
         return ResponseEntity.ok(ventaService.guardarVenta(venta));
     }
 
